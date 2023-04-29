@@ -7,8 +7,10 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using AutoIt;
 using AutoItX3Lib;
+using AutoIt;
+
+
 
 
 namespace Mars_Task02.Pages
@@ -83,16 +85,16 @@ namespace Mars_Task02.Pages
         }
         public void worksample()
         {
+            //After winActiavte do not move from focussed window
+            //Otherwise the script will run the command on the newly focused window.
             wrksampleselect.Click();
             AutoItX3 autoIt = new AutoItX3();
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
             autoIt.WinActivate("Open");
-            Thread.Sleep(500);
-            autoIt.Send(@"C:\Users\nikit\OneDrive\Desktop\Screenshot 2023-04-18 172352.png");
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
+            autoIt.Send("C:\\Users\\nikit\\QA-Analyst-small.png");
+            Thread.Sleep(1000);   
             autoIt.Send("{ENTER}");
-            Thread.Sleep(500);
-
         }
         public void active()
         {
