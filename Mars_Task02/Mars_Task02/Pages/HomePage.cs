@@ -15,12 +15,12 @@ namespace Mars_Task02.Pages
 
         private IWebElement managelistingstab => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]"));
     
-    public void gotoshareskillpage(IWebDriver driver)
+    public void gotoshareskillpage()
         {
             Thread.Sleep(5000);
             shareskillbtn.Click();
         }
-        public void gotomanagelistingspage(IWebDriver driver) 
+        public void gotomanagelistingspage() 
         {
             managelistingstab.Click();
         }

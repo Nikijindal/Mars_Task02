@@ -1,4 +1,5 @@
 ﻿using Mars_Task02.Pages;
+using Microsoft.Office.Interop.Word;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,21 +14,22 @@ namespace Mars_Task02.Utilities
     public class CommonDriver
     {
         public static IWebDriver driver;
+        protected Browser browser;
 
-        [SetUp]
+       [SetUp]
         public void InvokeMarsloginpage()
         {
             driver = new ChromeDriver();
-            LoginPage loginPageObj = new LoginPage();
-            loginPageObj.loginActions(driver);
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("http://localhost:5000/Home");
         }
 
 
-        //[TearDown]
-        //public void stopSteps()
-        //{
-        //    driver.Quit();
-        //}
+        [TearDown]
+        public void stopSteps()
+        {
+            driver.Quit();
+        }
 
 
     }
