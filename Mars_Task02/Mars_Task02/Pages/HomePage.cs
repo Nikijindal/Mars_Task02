@@ -22,6 +22,7 @@ namespace Mars_Task02.Pages
         }
         public void gotomanagelistingspage() 
         {
+            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]", 10);
             managelistingstab.Click();
         }
     

@@ -18,7 +18,7 @@ namespace Mars_Task02.Utilities
 
     public class ExcelLib
     {
-        static List<Datacollection> datacol = new List<Datacollection>();
+        static List<Datacollection> dataCol = new List<Datacollection>();
         private static DataTable ExcelToDataTable(string filename, string SheetName)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -38,8 +38,11 @@ namespace Mars_Task02.Utilities
             DataTable resultTable = table[SheetName];
             return resultTable;
         }
-       
- 
+
+        public static void ClearData()
+        {
+            dataCol.Clear();
+        }
 
 
 
@@ -59,7 +62,8 @@ namespace Mars_Task02.Utilities
                         colValue = table.Rows[row - 1][col].ToString()
                     };
                     //add all the details for each row
-                    datacol.Add(dtTable);
+                    dataCol.Add(dtTable);
+                   
                 }
             }
         }
@@ -69,7 +73,7 @@ namespace Mars_Task02.Utilities
             try
             {
                 // Retriving Data using LINQ to reduce much of iterations
-                var data = (from colData in datacol
+                var data = (from colData in dataCol
                                where colData.colName== columnName && colData.rowNumber== rowNumber
                                select colData.colValue).SingleOrDefault();
                 // var datas = dataCol.Where(x => x.columnName && x.rownumber == rowNumber).SingleOrDefault().colValue;
@@ -88,4 +92,6 @@ namespace Mars_Task02.Utilities
         public string colName { get; set; }
         public string colValue { get; set; }
     }
+
+    
 }

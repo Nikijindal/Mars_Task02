@@ -31,8 +31,6 @@ namespace Mars_Task02.Tests
             ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestDataShareSkills.xlsx", "ShareSkill");
             shareskillObj.ShareSkillAddfunction(ExcelLib.ReadData(1,"Title"),
                                                 ExcelLib.ReadData(1,"Description"),
-                                                ExcelLib.ReadData(1,"Category"),
-                                                ExcelLib.ReadData(1,"SubCategory"),
                                                 ExcelLib.ReadData(1,"Tags"),
                                                 ExcelLib.ReadData(1,"Startdate"),
                                                 ExcelLib.ReadData(1,"Enddate"),
@@ -42,8 +40,7 @@ namespace Mars_Task02.Tests
                                                 ExcelLib.ReadData(1,"Mendtime"),
                                                 ExcelLib.ReadData(1,"Tstarttime"),
                                                 ExcelLib.ReadData(1,"Tendtime"),
-                                                ExcelLib.ReadData(1,"Skill-Exchange"),
-                                                ExcelLib.ReadData(1,"Work Samples"));
+                                                ExcelLib.ReadData(1,"Skill-Exchange"));
             //shareskillObj.title();
             //shareskillObj.description();
             //shareskillObj.category();

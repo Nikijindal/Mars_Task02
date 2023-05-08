@@ -9,9 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoItX3Lib;
 using AutoIt;
-
-
-
+using System.Configuration;
 
 namespace Mars_Task02.Pages
 {
@@ -55,7 +53,7 @@ namespace Mars_Task02.Pages
         private IWebElement hiddenRbtn => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[10]/div[2]/div/div[2]/div/input"));
         private IWebElement savebtn => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]"));
 
-        public void ShareSkillAddfunction(string title, string description, string category, string subcategory, string tags, string startdate, string enddate, string sunstarttime, string sunendtime, string monstarttime, string monendtime,string tuestarttime,string tueendtime, string skillexc, string worksampleslink)
+        public void ShareSkillAddfunction(string title, string description, string tags, string startdate, string enddate, string sunstarttime, string sunendtime, string monstarttime, string monendtime,string tuestarttime,string tueendtime, string skillexc)
         {
                 Wait.WaitobeClickable(driver, "Name", "title", 5);
                 titletxt.SendKeys(title);
@@ -63,19 +61,19 @@ namespace Mars_Task02.Pages
            
                 Wait.WaitobeClickable(driver, "Name", "description", 5);
                 desctxtbox.SendKeys(description);
-            
+
             
                 Wait.WaitobeClickable(driver, "Name", "categoryId", 5);
                 SelectElement categorydrpdwn = new SelectElement(categoryfind);
-                categorydrpdwn.SelectByValue(category);
-            
-           
-            
+                categorydrpdwn.SelectByValue("6");
+
+
+
                 Wait.WaitobeClickable(driver, "Name", "subcategoryId", 5);
                 SelectElement subcategorydrpdwn = new SelectElement(subcategoryfind);
-                subcategorydrpdwn.SelectByValue(subcategory);
-            
-            
+                subcategorydrpdwn.SelectByValue("4");
+
+
                 Wait.WaitobeClickable(driver, "XPath", "\"//*[@id=\\\"service-listing-section\\\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input\"", 5);
                 tagstxt.SendKeys(tags + "\n");
             
@@ -83,8 +81,6 @@ namespace Mars_Task02.Pages
                 Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[5]/div[2]/div[1]/div[1]/div/input", 5);
                 srvchourlyRbtn.Click();
 
-            
-            
                 Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[6]/div[2]/div/div[2]/div/input", 5);
                 locOnlineRbtn.Click();
 
@@ -137,7 +133,7 @@ namespace Mars_Task02.Pages
                 Thread.Sleep(1000);
                 autoIt.WinActivate("Open");
                 Thread.Sleep(1000);
-                autoIt.Send(worksampleslink);
+                autoIt.Send(@"C:\Users\nikit\OneDrive\Desktop\QA-Analyst-small.png");
                 Thread.Sleep(1000);
                 autoIt.Send("{ENTER}");
             
