@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Collections.Specialized;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
+using Mars_Task02.ExtentReport;
 
 namespace Mars_Task02.Pages
 {
     public class ManageskillsPage : CommonDriver
-    {
+    { 
         private IWebElement viewbtn => driver.FindElement(By.XPath("//i[@class=\"eye icon\"]"));
         private IWebElement editbtn => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[2]"));
         private IWebElement deletebtn => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[3]/i"));
@@ -32,6 +33,7 @@ namespace Mars_Task02.Pages
         private IWebElement Desctxt => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[4]"));
         public void ManagelistingsViewSkills()
         {
+            ExtentReporting.LogInfo($"View listing of skills");
             //Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]", 5);
             //// click on manage listings tab
             //mnglistingtab.Click();
@@ -44,7 +46,7 @@ namespace Mars_Task02.Pages
         
         public void ManagelistingsEditSkill(string newtitle,string newdesc,string newtag,string newstartdate,string newenddate,string newstarttime,string newendtime)
         {
-
+            ExtentReporting.LogInfo($"Edit Skill from Listings");
             //Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]", 5);
             //// click on manage listings tab
             //mnglistingtab.Click();
@@ -88,16 +90,7 @@ namespace Mars_Task02.Pages
             //click on save button to save edited record 
             savebtn.Click();
         }
-        
-        public void ManageListingsdeleteskills() 
-        {
-            Thread.Sleep(8000);
-            deletebtn.Click();
-            Mldelconfirm.Click();
-
-        }
-
-        public void MLEditskillAssert(string newtitle,string newdesc)
+        public void MLEditskillAssert(string newtitle, string newdesc)
         {
             Thread.Sleep(5000);
             Assert.That(Titletxt.Text == newtitle, "Edited title did not match");
@@ -105,7 +98,14 @@ namespace Mars_Task02.Pages
             Assert.That(Desctxt.Text == newdesc, "Edited description did not match");
         }
 
+        public void ManageListingsdeleteskills() 
+        {
+            ExtentReporting.LogInfo($"Delete skill from listings");
+            Thread.Sleep(8000);
+            deletebtn.Click();
+            Mldelconfirm.Click();
 
+        }
         public void MLDeleteskillAssert(string newtitle)
         {
             Thread.Sleep(1500);

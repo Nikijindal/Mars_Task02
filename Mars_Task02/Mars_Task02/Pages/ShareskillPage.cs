@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using AutoItX3Lib;
 using AutoIt;
 using System.Configuration;
+using NUnit.Framework;
+using Mars_Task02.ExtentReport;
 
 namespace Mars_Task02.Pages
 {
@@ -52,9 +54,16 @@ namespace Mars_Task02.Pages
         private IWebElement activeRbtn => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input"));
         private IWebElement hiddenRbtn => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[10]/div[2]/div/div[2]/div/input"));
         private IWebElement savebtn => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]"));
+        private IWebElement addedtitle => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
+
+
+
+
 
         public void ShareSkillAddfunction(string title, string description, string tags, string startdate, string enddate, string sunstarttime, string sunendtime, string monstarttime, string monendtime,string tuestarttime,string tueendtime, string skillexc)
         {
+            
+
                 Wait.WaitobeClickable(driver, "Name", "title", 5);
                 titletxt.SendKeys(title);
             
@@ -120,14 +129,13 @@ namespace Mars_Task02.Pages
                 Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[2]/div/div[1]/div/input", 5);
                 skilltradeRbtn.Click();
             
-            
                 Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input", 5);
                 skillexctxtbox.SendKeys(skillexc + "\n");
-                
-            
-           
-                //After winActiavte do not move from focussed window
-                //Otherwise the script will run the command on the newly focused window.
+
+
+
+            //After winActiavte do not move from focussed window
+            //Otherwise the script will run the command on the newly focused window.
                 wrksampleselect.Click();
                 AutoItX3 autoIt = new AutoItX3();
                 Thread.Sleep(1000);
@@ -144,6 +152,13 @@ namespace Mars_Task02.Pages
             
                 Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]", 5);
                 savebtn.Click();
+            
+        }
+
+        public void ShareskillEditAssert(string skilltitle)
+        {
+            Thread.Sleep(1500);
+            Assert.That(addedtitle.Text == skilltitle, "Skill is not added successfully");
             
         }
     } }
