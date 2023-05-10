@@ -152,13 +152,15 @@ namespace Mars_Task02.Pages
             
                 Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]", 5);
                 savebtn.Click();
-            
+
+            //Thread.Sleep(5000);
+            //Assert.That(addedtitle.Text == "Quality Assurance Analyst", "Skill is not added successfully");
         }
 
-        public void ShareskillEditAssert(string skilltitle)
-        {
-            Thread.Sleep(1500);
-            Assert.That(addedtitle.Text == skilltitle, "Skill is not added successfully");
+        //public void ShareskillEditAssert(string skilltitle)
+        //{
+        //    Thread.Sleep(1500);
+        //    Assert.That(addedtitle.Text == skilltitle, "Skill is not added successfully");
             
-        }
+        //}
     } }

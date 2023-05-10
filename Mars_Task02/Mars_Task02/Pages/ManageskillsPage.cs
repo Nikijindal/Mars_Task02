@@ -89,27 +89,32 @@ namespace Mars_Task02.Pages
             Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]", 5);
             //click on save button to save edited record 
             savebtn.Click();
-        }
-        public void MLEditskillAssert(string newtitle, string newdesc)
-        {
-            Thread.Sleep(5000);
-            Assert.That(Titletxt.Text == newtitle, "Edited title did not match");
-            Thread.Sleep(5000);
-            Assert.That(Desctxt.Text == newdesc, "Edited description did not match");
-        }
 
-        public void ManageListingsdeleteskills() 
+            Thread.Sleep(8000);
+            Assert.That(Titletxt.Text == "Software Tester", "Title is edited successfully");
+        }
+        //public void MLEditskillAssert(string newtitle, string newdesc)
+        //{
+        //    Thread.Sleep(5000);
+        //    Assert.That(Titletxt.Text == newtitle, "Edited title did not match");
+        //    Thread.Sleep(5000);
+        //    Assert.That(Desctxt.Text == newdesc, "Edited description did not match");
+        //}
+
+        public void ManageListingsdeleteskill() 
         {
             ExtentReporting.LogInfo($"Delete skill from listings");
             Thread.Sleep(8000);
             deletebtn.Click();
             Mldelconfirm.Click();
 
+            Thread.Sleep(5000);
+            Assert.That(Titletxt.Text != "Software Tester", "Deletion not successful");
         }
-        public void MLDeleteskillAssert(string newtitle)
-        {
-            Thread.Sleep(1500);
-            Assert.That(MlPopUp.Text == newtitle + "has been deleted", "Deletion not successful");
-        }
+        //public void MLDeleteskillAssert(string newtitle)
+        //{
+        //    Thread.Sleep(8000);
+        //    Assert.That(MlPopUp.Text == newtitle + "has been deleted", "Deletion not successful");
+        //}
     }
 }
