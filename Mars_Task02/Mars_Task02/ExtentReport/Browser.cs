@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace Mars_Task02.ExtentReport
 {
-    public class Browser
-    {
-        private IWebDriver driver;
+    //public class Browser
+    //{
+    //    private IWebDriver driver;
 
-        public Browser(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
+    //    public Browser(IWebDriver driver)
+    //    {
+    //        this.driver = driver;
+    //    }
 
-        public string GetScreenShot()
-        {
-            var file = ((ITakesScreenshot)driver).GetScreenshot();
-            var img = file.AsBase64EncodedString;
+    //    public string GetScreenShot()
+    //    {
+    //        var file = ((ITakesScreenshot)driver).GetScreenshot();
+    //        var img = file.AsBase64EncodedString;
 
-            return img;
-        }
-    }
+    //        return img;
+    //    }
+    //}
 }

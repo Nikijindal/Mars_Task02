@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework.Interfaces;
 using System.ComponentModel;
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+
 
 
 
@@ -18,26 +21,47 @@ namespace Mars_Task02.Utilities
     public class CommonDriver
     {
         public static IWebDriver driver;
-        protected Browser browser;
+       // protected Browser browser;
 
        [SetUp]
         public void InvokeMarsloginpage()
         {
-            ExtentReporting.CreateTest(TestContext.CurrentContext.Test.MethodName);
+           // ExtentReporting.CreateTest(TestContext.CurrentContext.Test.MethodName);
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("http://localhost:5000/Home");
 
-            browser= new Browser(driver);
+            //browser= new Browser(driver);
         }
 
 
         [TearDown]
         public void stopSteps()
         {
+            //EndTest();
+            //ExtentReporting.EndReporting();
             driver.Quit();
+
         }
 
+    //    private void EndTest()
+    //    {
+    //        var testStatus = TestContext.CurrentContext.Result.Outcome.Status;
+    //        var message = TestContext.CurrentContext.Result.Message;
 
+    //        switch (testStatus)
+    //        {
+    //            case TestStatus.Failed:
+    //                //ExtentReporting.LogFail($"Test has failed {message}");
+    //                break;
+    //            case TestStatus.Skipped:
+    //                //ExtentReporting.LogInfo($"Test skipped {message}");
+    //                break;
+    //            default:
+    //                break;
+    //        }
+
+    //        //ExtentReporting.LogScreenShot("Ending test", Browser.GetScreenShot());
+    //    }
     }
 }
