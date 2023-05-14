@@ -11,9 +11,7 @@ namespace Mars_Task02.Pages
 {
     public class HomePage : CommonDriver
     {
-        private IWebElement shareskillbtn => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/div[2]/a"));
-
-        private IWebElement managelistingstab => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]"));
+        
     
     public void gotoshareskillpage()
         {

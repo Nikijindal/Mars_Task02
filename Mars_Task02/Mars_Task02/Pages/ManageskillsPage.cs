@@ -7,30 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
-using Mars_Task02.ExtentReport;
+
 
 namespace Mars_Task02.Pages
 {
     public class ManageskillsPage : CommonDriver
     { 
-        private IWebElement viewbtn => driver.FindElement(By.XPath("//i[@class=\"eye icon\"]"));
-        private IWebElement editbtn => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[2]"));
-        private IWebElement deletebtn => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[3]/i"));
-        private IWebElement mnglistingtab => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]"));
-        private IWebElement savebtn => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]"));
-        private IWebElement MlPopUp => driver.FindElement(By.CssSelector("[class=\"ns-box ns-growl ns-effect-jelly ns-type-success ns-show\"]"));
-        private IWebElement Mltitle => driver.FindElement(By.Name("title"));
-        private IWebElement MlDesc => driver.FindElement(By.Name("description"));
-        private IWebElement Mltags => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input"));
-        private IWebElement Mlstartdate => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input"));
-        private IWebElement Mlenddate => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[1]/div[4]/input"));
-        private IWebElement Mlstarttime => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[2]/input"));
-        private IWebElement Mlendtime => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[3]/input"));
-        private IWebElement Mldelconfirm => driver.FindElement(By.XPath("/html/body/div[2]/div/div[3]/button[2]"));
-        private IWebElement Titletxt  => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
-        private IWebElement Desctxt => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[4]"));
+        
         public void ManagelistingsViewSkills()
         {
             //ExtentReporting.LogInfo($"View listing of skills");
@@ -88,18 +72,16 @@ namespace Mars_Task02.Pages
 
             Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]", 5);
             //click on save button to save edited record 
-            savebtn.Click();
+            mlsavebtn.Click();
 
             Thread.Sleep(8000);
             Assert.That(Titletxt.Text == "Software Tester", "Title is edited successfully");
         }
-        //public void MLEditskillAssert(string newtitle, string newdesc)
-        //{
-        //    Thread.Sleep(5000);
-        //    Assert.That(Titletxt.Text == newtitle, "Edited title did not match");
-        //    Thread.Sleep(5000);
-        //    Assert.That(Desctxt.Text == newdesc, "Edited description did not match");
-        //}
+        public string GetLastListing(IWebDriver driver)
+        {
+            return lastListing.Text;
+        }
+        
 
         public void ManageListingsdeleteskill() 
         {
@@ -111,10 +93,10 @@ namespace Mars_Task02.Pages
             Thread.Sleep(5000);
             Assert.That(Titletxt.Text != "Software Tester", "Deletion not successful");
         }
-        //public void MLDeleteskillAssert(string newtitle)
-        //{
-        //    Thread.Sleep(8000);
-        //    Assert.That(MlPopUp.Text == newtitle + "has been deleted", "Deletion not successful");
-        //}
+        public string Alertpopup(IWebDriver driver)
+        {
+            return confirmationAlert.Text;
+        }
+        
     }
 }

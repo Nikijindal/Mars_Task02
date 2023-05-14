@@ -1,6 +1,5 @@
 ﻿using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
-using Mars_Task02.ExtentReport;
 using Mars_Task02.Pages;
 using Mars_Task02.Utilities;
 using NUnit.Framework;
@@ -26,6 +25,7 @@ namespace Mars_Task02.Tests
 
         public static ExtentReports extent;
         public static ExtentTest test;
+
 
         [OneTimeSetUp]
         public void StartExtentReports()
@@ -66,6 +66,12 @@ namespace Mars_Task02.Tests
                                                     ExcelLib.ReadData(1, "Tstarttime"),
                                                     ExcelLib.ReadData(1, "Tendtime"),
                                                     ExcelLib.ReadData(1, "Skill-Exchange"));
+                string newSkill = shareskillObj.alertWindow(driver);
+                Assert.That(newSkill == "Service listing added successfully", "Error while adding a record");
+                test.Log(Status.Pass, "Passed - Action successful");
+
+                Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
+                screenshot.SaveAsFile("Screnshot.png", ScreenshotImageFormat.Png);
 
                 //ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestDataShareSkills.xlsx", "ShareSkill");
                 //shareskillObj.ShareskillEditAssert(ExcelLib.ReadData(1, "Title"));
@@ -81,7 +87,7 @@ namespace Mars_Task02.Tests
         public void ManageviewSkill()
         {
             test = extent.CreateTest(MethodBase.GetCurrentMethod().Name);
-            //ExtentReporting.LogInfo($"View Listing Action");
+            
             try
             {
                 ExcelLib.ClearData();
@@ -101,7 +107,6 @@ namespace Mars_Task02.Tests
         public void ManageEditskill()
         {
             test = extent.CreateTest(MethodBase.GetCurrentMethod().Name);
-            // ExtentReporting.LogInfo($"Edit Listings Action");
             try
             {
                 ExcelLib.ClearData();
@@ -117,12 +122,9 @@ namespace Mars_Task02.Tests
                                                     ExcelLib.ReadData(1, "Enddate"),
                                                     ExcelLib.ReadData(1, "Starttime"),
                                                     ExcelLib.ReadData(1, "Endtime"));
-
-                //homePageObj.gotomanagelistingspage();
-                //ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestDataManageListings.xlsx", "ManageSkill");
-                // manageskillObj.MLEditskillAssert(ExcelLib.ReadData(1, "Title"),
-                //ExcelLib.ReadData(1, "Description"));
-
+                string editedSkill = manageskillObj.Alertpopup(driver);
+                Assert.That(editedSkill == "service listing updated successfully", "Error while updating record.");
+                test.Log(Status.Pass, "Passed,action successfull.");
             }
             catch(Exception ex)
             {
@@ -143,7 +145,10 @@ namespace Mars_Task02.Tests
 
                 homePageObj.gotomanagelistingspage();
                 manageskillObj.ManageListingsdeleteskill();
-                // manageskillObj.MLDeleteskillAssert(ExcelLib.ReadData(1, "Title"));
+                string deletedSkillAlert = manageskillObj.Alertpopup(driver);
+                string deletedSkill = manageskillObj.GetLastListing(driver);
+                Assert.That(deletedSkillAlert == deletedSkill + "has been deleted", "Error while deleting receord");
+                test.Log(Status.Pass, "Passed,action successful.");
             }
             catch(Exception ex)
             {
