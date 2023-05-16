@@ -74,14 +74,15 @@ namespace Mars_Task02.Pages
             //click on save button to save edited record 
             mlsavebtn.Click();
 
-            Thread.Sleep(8000);
-            Assert.That(Titletxt.Text == "Software Tester", "Title is edited successfully");
+            Thread.Sleep(5000);
+            Assert.That(Titletxt.Text == "Software Tester", "Edited skill not saved successfully");
+           // Assert.That(MlPopUp.Text == "service listing updated successfully", "Edited skill not saved successfully");
         }
         public string GetLastListing(IWebDriver driver)
         {
             return lastListing.Text;
         }
-        
+
 
         public void ManageListingsdeleteskill() 
         {
@@ -90,13 +91,14 @@ namespace Mars_Task02.Pages
             deletebtn.Click();
             Mldelconfirm.Click();
 
-            Thread.Sleep(5000);
-            Assert.That(Titletxt.Text != "Software Tester", "Deletion not successful");
+            Thread.Sleep(2000);
+            //Assert.That(Titletxt.Text != "Software Tester", "Deletion not successful");
+            Assert.That(MlconfirmationAlert.Text == "Software Tester has been deleted", "Error while deleting receord");
         }
-        public string Alertpopup(IWebDriver driver)
-        {
-            return confirmationAlert.Text;
-        }
+        //public string Alertpopup(IWebDriver driver)
+        //{
+        //    return confirmationAlert.Text;
+        //}
         
     }
 }

@@ -28,7 +28,7 @@ namespace Mars_Task02.Utilities
         //public static string ReportXMLPath = Resource1.ReportXMLPath;
         //public static string ScreenShotPath = Resource1.ScreenShotPath;
 
-
+        public static ExtentReports extent;
         public static ExtentTest test;
 
 
@@ -103,6 +103,7 @@ namespace Mars_Task02.Utilities
         public static IWebElement shareskillbtn => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/div[2]/a"));
 
         public static IWebElement managelistingstab => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]"));
+        public static IWebElement MlconfirmationAlert => driver.FindElement(By.CssSelector("[class=\"ns-box ns-growl ns-effect-jelly ns-type-success ns-show\"]"));
 
 
         //#region screenshots
@@ -117,7 +118,8 @@ namespace Mars_Task02.Utilities
                     System.IO.Directory.CreateDirectory(folderLocation);
                 }
 
-                var screenShot = ((ITakesScreenshot)driver).GetScreenshot();
+                //var screenShot = ((ITakesScreenshot)driver).GetScreenshot();
+                var screenShot = (driver as ITakesScreenshot).GetScreenshot();
                 var fileName = new StringBuilder(folderLocation);
 
                 fileName.Append(ScreenShotFileName);

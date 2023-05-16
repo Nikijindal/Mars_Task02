@@ -18,6 +18,7 @@ namespace Mars_Task02.Pages
     public class ShareskillPage : CommonDriver
     {
         public void ShareSkillAddfunction(string title, string description, string tags, string startdate, string enddate, string sunstarttime, string sunendtime, string monstarttime, string monendtime, string tuestarttime, string tueendtime, string skillexc)
+        
         {
             Wait.WaitobeClickable(driver, "Name", "title", 5);
             titletxt.SendKeys(title);
@@ -108,12 +109,16 @@ namespace Mars_Task02.Pages
 
             //Thread.Sleep(5000);
             //Assert.That(addedtitle.Text == "Quality Assurance Analyst", "Skill is not added successfully");
+            Thread.Sleep(5000);
+            Assert.That(confirmationAlert.Text == "Service Listing Added successfully", "Record not added sucessfully");
+
+
         }
 
-        public string alertWindow(IWebDriver driver)
-        {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            return confirmationAlert.Text;
-        }
+        //public string alertWindow(IWebDriver driver)
+        //{
+        //    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+        //    return confirmationAlert.Text;
+        //}
     }
 }
