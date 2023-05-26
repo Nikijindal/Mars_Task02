@@ -17,7 +17,6 @@ namespace Mars_Task02.Pages
     {
         public LoginPage()
         {
-
             ExcelLib.PopulateInCollection(ExcelPath, "SignIn");
         }
         private static IWebElement signInButton => driver.FindElement(By.XPath("//*[@id=\"home\"]/div/div/div[1]/div/a"));
