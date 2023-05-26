@@ -32,14 +32,6 @@ namespace Mars_Task02.Pages
             passwordTextbox.SendKeys(ExcelLib.ReadData(2, "Password"));
             rememberMeCheckbox.Click();
             loginButton.Click();
-
-
-
-            //signinButton.Click();
-               // usernameTextbox.SendKeys(Username);
-                //passwordTextbox.SendKeys(Password);
-                //loginButton.Click();
-                //Thread.Sleep(5000);
         }
     }
 }

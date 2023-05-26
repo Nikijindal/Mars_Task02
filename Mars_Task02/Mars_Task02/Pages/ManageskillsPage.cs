@@ -103,14 +103,11 @@ namespace Mars_Task02.Pages
         }
         public void ManageListingsdeleteskill()
         {
-            //ExtentReporting.LogInfo($"Delete skill from listings");
+            
             Thread.Sleep(8000);
             deleteButton.Click();
             deletionConfirm.Click();
-
             Thread.Sleep(2000);
-
-            // Assert.That(deletionConfirmation.Text == "Software Tester has been deleted", "Error while deleting record");
         }
 
         public string LastDeletedSkill()
@@ -123,53 +120,6 @@ namespace Mars_Task02.Pages
 
 }
 
-//// driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-// Thread.Sleep(8000);
-// //click on edit button of the first listing
-// editButton.Click();
-
-// Wait.WaitobeClickable(driver, "Name", "title", 5);
-// //click and edit title textbox
-// titleTextbox.Clear();
-// titleTextbox.SendKeys(ExcelLib.ReadData(2, "Title"));
-
-//Wait.WaitobeClickable(driver, "Name", "description", 5);
-////click and edit description textbox 
-//descriptionTextbox.Clear();
-//descriptionTextbox.SendKeys(ExcelLib.ReadData(2, "Description"));
-
-//Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input", 5);
-//// click and edit tags field
-//tagsTextbox.SendKeys(ExcelLib.ReadData(2, "Tags" + "\n"));
-
-//Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input", 5);
-//// Enter new start date
-//startDate.SendKeys(ExcelLib.ReadData(2, "Startdate"));
-
-//Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[1]/div[4]/input", 5);
-//// Enter new end date
-//endDate.SendKeys(ExcelLib.ReadData(2, "Enddate"));
-
-//Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[2]/input", 5);
-////Enter new start time
-//startTime.SendKeys(ExcelLib.ReadData(2, "Starttime"));
-
-//Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[3]/input", 5);
-////Enter new end time
-//endTime.SendKeys(ExcelLib.ReadData(2, "Endtime"));
-
-//Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]", 5);
-////click on save button to save edited record 
-//saveButton.Click();
-
-//Thread.Sleep(5000);
-//    Assert.That(editedTitleText.Text == "Software Tester", "Edited skill not saved successfully");
-
-
-//public string GetLastListing(IWebDriver driver)
-//{
-//    return lastListing.Text;
-//}
 
 
 

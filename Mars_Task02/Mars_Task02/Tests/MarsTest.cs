@@ -21,28 +21,6 @@ namespace Mars_Task02.Tests
     [Parallelizable]
     public class MarsTest : CommonDriver
     {
-       // LoginPage loginPageObj = new LoginPage();
-        //HomePage homePageObj = new HomePage();
-       // ShareskillPage shareskillObj = new ShareskillPage();
-       // ManageskillsPage manageskillObj = new ManageskillsPage();
-
-
-        //[OneTimeSetUp]
-        //public void StartExtentReports()
-        //{
-        //    // Initialize ExtentReports
-
-
-        //    extent = new ExtentReports();
-        //    var htmlReporter = new ExtentHtmlReporter(ReportPath);
-        //    htmlReporter.LoadConfig(ReportXMLPath);
-        //    extent.AttachReporter(htmlReporter);
-        //    extent.AddSystemInfo("Environment", "QA");
-        //    extent.AddSystemInfo("User", Environment.UserName);
-        //    extent.AddSystemInfo("Machine Name", Environment.MachineName);
-        //}
-
-
         [Test, Order(1)]
         public void Shareskills()
         {
@@ -83,34 +61,7 @@ namespace Mars_Task02.Tests
                 test.Log(Status.Info, ex.Message);
             }
         }
-        //    try
-        //    {
-        //        ExcelLib.ClearData();
-        //        //ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestData.xlsx", "SignIn");
-        //        //loginPageObj.LoginActions(ExcelLib.ReadData(1, "Username"), ExcelLib.ReadData(1, "Password"));
-
-        //        homePageObj.GoToShareSkillPage();
-        //        ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestDataShareSkills.xlsx", "ShareSkill");
-        //        shareskillObj.ShareSkillAddFunction(ExcelLib.ReadData(1, "Title"),
-        //                                            ExcelLib.ReadData(1, "Description"),
-        //                                            ExcelLib.ReadData(1, "Tags"),
-        //                                            ExcelLib.ReadData(1, "Startdate"),
-        //                                            ExcelLib.ReadData(1, "Enddate"),
-        //                                            ExcelLib.ReadData(1, "Starttime"),
-        //                                            ExcelLib.ReadData(1, "Endtime"),
-        //                                            ExcelLib.ReadData(1, "Mstarttime"),
-        //                                            ExcelLib.ReadData(1, "Mendtime"),
-        //                                            ExcelLib.ReadData(1, "Tstarttime"),
-        //                                            ExcelLib.ReadData(1, "Tendtime"),
-        //                                            ExcelLib.ReadData(1, "Skill-Exchange"));
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        test.Log(Status.Fail, "Failed, action unsuccessfull or Error while executing the test.");
-        //        test.Log(Status.Info, ex.Message);
-        //    }
-        //}
+        
 
         [Test, Order(2)]
         public void ManageviewSkill()
@@ -121,9 +72,6 @@ namespace Mars_Task02.Tests
             {
                 ManageskillsPage manageskillObj = new ManageskillsPage();
                 ExcelLib.ClearData();
-                //ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestData.xlsx", "SignIn");
-                //loginPageObj.LoginActions(ExcelLib.ReadData(1, "Username"), ExcelLib.ReadData(1, "Password"));
-
                 manageskillObj.ManagelistingsEditSkill();
                 manageskillObj.ManagelistingsViewSkill();
                 test.Log(Status.Pass, "Passed, Action Successful.");
@@ -142,11 +90,7 @@ namespace Mars_Task02.Tests
             {
                 ManageskillsPage manageskillObj = new ManageskillsPage();
                 ExcelLib.ClearData();
-                //ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestData1.xlsx", "ManagelistingsEditSignIn");
-                //loginPageObj.LoginActions(ExcelLib.ReadData(1, "Username"), ExcelLib.ReadData(1, "Password"));
-
-                // homePageObj.GoToManageListingsPage();
-                //ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestDataManageListings.xlsx", "ManageSkill");
+                
                 RowNum = 2;
                 manageskillObj.ManagelistingsEditSkill();
                 manageskillObj.EditListing();
@@ -158,14 +102,7 @@ namespace Mars_Task02.Tests
                 manageskillObj.EditStartTime();
                 manageskillObj.EditEndTime();
                 manageskillObj.SaveEditedDetail();
-                //(ExcelLib.ReadData(1, "Title"),
-                //ExcelLib.ReadData(1, "Description"),
-                //ExcelLib.ReadData(1, "Tags"),
-                //ExcelLib.ReadData(1, "Startdate"),
-                //ExcelLib.ReadData(1, "Enddate"),
-                //ExcelLib.ReadData(1, "Starttime"),
-                //ExcelLib.ReadData(1, "Endtime"));
-
+              
                 string EditconfirmPopUpAlert = manageskillObj.ConfirmAlertWindow();
                 Assert.That(EditconfirmPopUpAlert == "Service Listing Updated successfully","Error while editing listing");
                 test.Log(Status.Pass, "Passed,action successfull.");
@@ -185,8 +122,7 @@ namespace Mars_Task02.Tests
             {
                 ManageskillsPage manageskillObj = new ManageskillsPage();
                 ExcelLib.ClearData();
-               // ExcelLib.PopulateInCollection(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExcelData\TestData2.xlsx", "ManageListingsDeleteSignIn");
-                //loginPageObj.LoginActions(ExcelLib.ReadData(1, "Username"), ExcelLib.ReadData(1, "Password"));
+              
 
                 manageskillObj.ManagelistingsEditSkill();
                 manageskillObj.ManageListingsdeleteskill();
@@ -202,11 +138,6 @@ namespace Mars_Task02.Tests
             }
 
         }
-        [OneTimeTearDown]
-        public void SaveExtentReports()
-        {
-            // Save Extentreport html file
-            extent.Flush();
-        }
+        
     }
 }

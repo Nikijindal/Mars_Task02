@@ -13,8 +13,6 @@ using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 
 
-
-
 namespace Mars_Task02.Utilities
 {
 
@@ -27,11 +25,8 @@ namespace Mars_Task02.Utilities
         public static string ReportXMLPath = @"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExtentReport\XMLFile1.xml";
         public static string ReportPath = @"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\ExtentReport\TestReports\Reports";
         public static int RowNum = 1;
-        //public static ExtentTest test;
-        //public static string ReportPath = Resource1.ReportPath;
-        //public static string ReportXMLPath = Resource1.ReportXMLPath;
-        //public static string ScreenShotPath = Resource1.ScreenShotPath;
-
+        
+        //Extent Reports
         public static ExtentReports extent;
         public static ExtentTest test;
 
@@ -40,7 +35,6 @@ namespace Mars_Task02.Utilities
         public void StartExtentReports()
         {
             // Initialize ExtentReports
-
 
             extent = new ExtentReports();
             var htmlReporter = new ExtentHtmlReporter(ReportPath);
@@ -62,7 +56,6 @@ namespace Mars_Task02.Utilities
                     System.IO.Directory.CreateDirectory(folderLocation);
                 }
 
-                //var screenShot = ((ITakesScreenshot)driver).GetScreenshot();
                 var screenShot = (driver as ITakesScreenshot).GetScreenshot();
                 var fileName = new StringBuilder(folderLocation);
 
@@ -90,11 +83,7 @@ namespace Mars_Task02.Utilities
 
             LoginPage loginPageObj = new LoginPage();
             loginPageObj.LoginActions();
-            //LoginPage loginObj = new LoginPage();
-            //loginObj.LoginActions();
-
-            //Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
-            //screenshot.SaveAsFile("Screnshot.png",ScreenshotImageFormat.Png);
+            
         }
 
 
@@ -108,7 +97,12 @@ namespace Mars_Task02.Utilities
             driver.Quit();
 
         }
-
+        [OneTimeTearDown]
+        public void SaveExtentReports()
+        {
+            // Save Extentreport html file
+            extent.Flush();
+        }
 
     }
 }

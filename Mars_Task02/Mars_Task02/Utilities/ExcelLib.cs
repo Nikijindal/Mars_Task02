@@ -43,22 +43,7 @@ namespace Mars_Task02.Utilities
                     return resultTable;
                 }
             }
-            //    System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            //    FileStream stream = File.Open(filename, FileMode.Open, FileAccess.ReadWrite);
-            //    IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-
-            //    // excelReader.IsFirstRowAsColumnNames = true 
-
-            //    DataSet resultSet = excelReader.AsDataSet(new ExcelDataSetConfiguration()
-            //    {
-            //        ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
-            //        {
-            //            UseHeaderRow = true
-            //        }
-            //    });
-            //    DataTableCollection table = resultSet.Tables;
-            //    DataTable resultTable = table[SheetName];
-            //    return resultTable;
+           
             }
 
             public static void ClearData()
