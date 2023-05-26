@@ -21,25 +21,47 @@ namespace Mars_Task02.Utilities
         static List<Datacollection> dataCol = new List<Datacollection>();
         private static DataTable ExcelToDataTable(string filename, string SheetName)
         {
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            FileStream stream = File.Open(filename, FileMode.Open, FileAccess.ReadWrite);
-            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            // excelReader.IsFirstRowAsColumnNames = true * Does not works anymore
-
-            DataSet resultSet = excelReader.AsDataSet(new ExcelDataSetConfiguration()
+            // Open file and return as Stream
+            using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read))
             {
-                ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    UseHeaderRow = true
-                }
-            });
-            DataTableCollection table = resultSet.Tables;
-            DataTable resultTable = table[SheetName];
-            return resultTable;
-        }
+                    var result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                    {
+                        ConfigureDataTable = (data) => new ExcelDataTableConfiguration()
+                        {
+                            UseHeaderRow = true
+                        }
+                    });
 
-        public static void ClearData()
+                    //Get all the tables
+                    var table = result.Tables;
+                    // store it in data table
+                    var resultTable = table[SheetName];
+                    return resultTable;
+                }
+            }
+            //    System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            //    FileStream stream = File.Open(filename, FileMode.Open, FileAccess.ReadWrite);
+            //    IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+
+            //    // excelReader.IsFirstRowAsColumnNames = true 
+
+            //    DataSet resultSet = excelReader.AsDataSet(new ExcelDataSetConfiguration()
+            //    {
+            //        ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+            //        {
+            //            UseHeaderRow = true
+            //        }
+            //    });
+            //    DataTableCollection table = resultSet.Tables;
+            //    DataTable resultTable = table[SheetName];
+            //    return resultTable;
+            }
+
+            public static void ClearData()
         {
             dataCol.Clear();
         }
@@ -48,6 +70,7 @@ namespace Mars_Task02.Utilities
 
         public static void PopulateInCollection(string fileName,string SheetName)
         {
+            ExcelLib.ClearData();
             DataTable table = ExcelToDataTable(fileName,SheetName);
             
             //Iterate through the rows and columns of the table
@@ -73,7 +96,8 @@ namespace Mars_Task02.Utilities
             try
             {
                 // Retriving Data using LINQ to reduce much of iterations
-                var data = (from colData in dataCol
+                rowNumber = rowNumber - 1;
+                string data = (from colData in dataCol
                                where colData.colName== columnName && colData.rowNumber== rowNumber
                                select colData.colValue).SingleOrDefault();
                 // var datas = dataCol.Where(x => x.columnName && x.rownumber == rowNumber).SingleOrDefault().colValue;
@@ -81,6 +105,7 @@ namespace Mars_Task02.Utilities
             }
             catch (Exception e)
             {
+                Console.WriteLine("Exception occurred in ExcelLib Class ReadData Method!" + Environment.NewLine + e.Message.ToString());
                 return null;
             }
         }

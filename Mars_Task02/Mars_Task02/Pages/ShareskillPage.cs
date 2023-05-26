@@ -11,114 +11,328 @@ using AutoItX3Lib;
 using AutoIt;
 using System.Configuration;
 using NUnit.Framework;
+using Microsoft.Office.Interop.Excel;
+using MongoDB.Driver;
+using Microsoft.Office.Interop.Word;
 
 
 namespace Mars_Task02.Pages
 {
+
     public class ShareskillPage : CommonDriver
     {
-        public void ShareSkillAddfunction(string title, string description, string tags, string startdate, string enddate, string sunstarttime, string sunendtime, string monstarttime, string monendtime, string tuestarttime, string tueendtime, string skillexc)
-        
+        public ShareskillPage()
         {
-            Wait.WaitobeClickable(driver, "Name", "title", 5);
-            titletxt.SendKeys(title);
+            ExcelLib.PopulateInCollection(ExcelPath, "ShareSkill");
+        }
 
+        private static IWebElement shareSkillButton => driver.FindElement(By.CssSelector("[href=\"/Home/ServiceListing\"]"));
+        private static IWebElement titleTextBox => driver.FindElement(By.Name("title"));
+        private static IWebElement descriptionTextBox => driver.FindElement(By.Name("description"));
+        private static IWebElement categoryFind => driver.FindElement(By.Name("categoryId"));
+        private static IWebElement categorySelect => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[7]"));
+        private static IWebElement subCategoryFind => driver.FindElement(By.Name("subcategoryId"));
+        private static IWebElement subCategorySelect => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select/option[5]"));
+        private static IWebElement tagsTextBox => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input"));
+        private static IWebElement serviceHourly => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[5]/div[2]/div[1]/div[1]/div/input"));
 
-            Wait.WaitobeClickable(driver, "Name", "description", 5);
-            desctxtbox.SendKeys(description);
+        private static IWebElement serviceOneOff => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[5]/div[2]/div[1]/div[2]/div/input"));
 
+        private static IWebElement locationOnsite => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[6]/div[2]/div/div[1]/div/input"));
+        private static IWebElement locationOnline => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[6]/div[2]/div/div[2]/div/input"));
 
-            Wait.WaitobeClickable(driver, "Name", "categoryId", 5);
-            SelectElement categorydrpdwn = new SelectElement(categoryfind);
-            categorydrpdwn.SelectByValue("6");
+        private static IWebElement startDate => driver.FindElement(By.Name("startDate"));
+        private static IWebElement endDate => driver.FindElement(By.Name("endDate"));
 
-            Wait.WaitobeClickable(driver, "Name", "subcategoryId", 5);
-            SelectElement subcategorydrpdwn = new SelectElement(subcategoryfind);
-            subcategorydrpdwn.SelectByValue("4");
+        private static IWebElement selectSunday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[1]/div/input"));
 
+        private static IWebElement startTimeSunday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[2]/input"));
+        private static IWebElement endTimeSunday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[3]/input"));
+        private static IWebElement selectMonday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[1]/div/input"));
 
-            Wait.WaitobeClickable(driver, "XPath", "\"//*[@id=\\\"service-listing-section\\\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input\"", 5);
-            tagstxt.SendKeys(tags + "\n");
+        private static IWebElement startTimeMonday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[2]/input"));
+        private static IWebElement endTimeMonday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[3]/input"));
 
+        private static IWebElement selectTuesday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[1]/div/input"));
+        private static IWebElement startTimeTuesday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[2]/input"));
+        private static IWebElement endTimeTuesday => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[3]/input"));
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[5]/div[2]/div[1]/div[1]/div/input", 5);
-            srvchourlyRbtn.Click();
+        private static IWebElement skillTradeButton => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[2]/div/div[1]/div/input"));
+        private static IWebElement skillTradeCredit => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[2]/div/div[2]/div/input"));
+        private static IWebElement skillExchange => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input"));
+        private static IWebElement credit => driver.FindElement(By.Name("charge"));
+        private static IWebElement workSampleSelect => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
+        private static IWebElement activeButton => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input"));
+        private static IWebElement hiddenButton => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[10]/div[2]/div/div[2]/div/input"));
+        private static IWebElement saveButton => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]"));
+        private static IWebElement addedTitle => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
+        private static IWebElement confirmationAlert => driver.FindElement(By.CssSelector("[class=\"ns-box ns-growl ns-effect-jelly ns-type-success ns-show\"]"));
+        private static IWebElement titleRequired => driver.FindElement(By.XPath("//div[contains(text(), \"Tags are required\")]"));
+        private static IWebElement titleSpecialCharacters => driver.FindElement(By.XPath("//div[contains(text(), \"Special characters are not allowed.\")]"));
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[6]/div[2]/div/div[2]/div/input", 5);
-            locOnlineRbtn.Click();
+        private static IWebElement descriptionIsRequired => driver.FindElement(By.XPath("//div[contains(text(), \"Description is required\")]"));
+        private static IWebElement categoryIsRequired => driver.FindElement(By.XPath("//div[contains(text(), \"Category is required\")]"));
+        private static IWebElement subCategoryIsRequired => driver.FindElement(By.XPath("//div[contains(text(), \"Subcategory is required\")]"));
+        private static IWebElement tagIsRequired => driver.FindElement(By.XPath("//div[contains(text(), \"Tags are required\")]"));
+        private static IWebElement incorrectFileFormat => driver.FindElement(By.CssSelector("[class=\"ns-box ns-growl ns-effect-jelly ns-type-error ns-show\"]"));
 
-            Wait.WaitobeClickable(driver, "Name", "startDate", 5);
-            strtDateSelect.SendKeys(startdate);
+        public void ShareSkill()
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            shareSkillButton.Click();
+        }
+        public void AddTitle()
+        {
+            titleTextBox.SendKeys(ExcelLib.ReadData(RowNum, "Title"));
+        }
+        public void AddDescription()
+        {
+            descriptionTextBox.SendKeys(ExcelLib.ReadData(RowNum, "Description"));
+        }
+        public void AddCategory()
+        {
+            SelectElement categoryDropdown = new SelectElement(categoryFind);
+            categoryDropdown.SelectByValue("6");
+        }
+        public void AddSubCategory()
+        {
+            SelectElement subCategoryDropdown = new SelectElement(subCategoryFind);
+            subCategoryDropdown.SelectByValue("4");
+        }
 
-            Wait.WaitobeClickable(driver, "Name", "endDate", 5);
-            endDateSelect.SendKeys(enddate);
+        public void AddTags()
+        {
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[1]/div/input", 5);
-            selectSun.Click();
+            tagsTextBox.SendKeys(ExcelLib.ReadData(RowNum, "Tags"));
+            tagsTextBox.SendKeys(Keys.Enter);
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[2]/input", 5);
-            strttimeSun.SendKeys(sunstarttime);
+        public void AddServiceType()
+        {
+            if (ExcelLib.ReadData(2, "Service Type") == "Hourly basis service")
+            {
+                serviceHourly.Click();
+            }
+            else
+            {
+                serviceOneOff.Click();
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[3]/input", 5);
-            endtimeSun.SendKeys(sunendtime);
+            }
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[1]/div/input", 5);
-            selectMon.Click();
+        public void AddLocationType()
+        {
+            if (ExcelLib.ReadData(2, "Location Type") == "On-site")
+            {
+                locationOnsite.Click();
+            }
+            else
+            {
+                locationOnline.Click();
+            }
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[2]/input", 5);
-            strttimeMon.SendKeys(monstarttime);
+        public void AddStartandEndtime()
+        {
+            startDate.SendKeys(ExcelLib.ReadData(RowNum, "Startdate"));
+            endDate.SendKeys(ExcelLib.ReadData(RowNum, "Enddate"));
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[3]/input", 5);
-            endtimeMon.SendKeys(monendtime);
+        public void AddSunday()
+        {
+            selectSunday.Click();
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[1]/div/input", 5);
-            selectTue.Click();
+        public void AddStartandEndtimeSunday()
+        {
+            startTimeSunday.SendKeys(ExcelLib.ReadData(RowNum, "Starttime"));
+            endTimeSunday.SendKeys(ExcelLib.ReadData(RowNum, "Endtime"));
+        }
+        public void AddMonday()
+        {
+            selectMonday.Click();
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[2]/input", 5);
-            strttimeTue.SendKeys(tuestarttime);
+        public void AddStartandEndtimeMonday()
+        {
+            startTimeMonday.SendKeys(ExcelLib.ReadData(RowNum, "Mstarttime"));
+            endTimeMonday.SendKeys(ExcelLib.ReadData(RowNum, "Mendtime"));
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[3]/input", 5);
-            endtimeTue.SendKeys(tueendtime);
+        public void AddTuesday()
+        {
+            selectTuesday.Click();
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[2]/div/div[1]/div/input", 5);
-            skilltradeRbtn.Click();
+        public void AddStartandEndtimeTuesday()
+        {
+            startTimeTuesday.SendKeys(ExcelLib.ReadData(RowNum, "Tstarttime"));
+            endTimeTuesday.SendKeys(ExcelLib.ReadData(RowNum, "Tendtime"));
+        }
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input", 5);
-            skillexctxtbox.SendKeys(skillexc + "\n");
+        public void AddSkillTrade()
+        {
+            if (ExcelLib.ReadData(RowNum, "Skill Trade") == "Skill-exchange")
+            {
+                skillTradeButton.Click();
+                skillExchange.SendKeys(ExcelLib.ReadData(RowNum, "Skill-Exchange"));
+                skillExchange.SendKeys(Keys.Enter);
+            }
+            else
+            {
+                skillTradeCredit.Click();
+                credit.SendKeys(ExcelLib.ReadData(RowNum, "Credit"));
 
+            }
+        }
 
-
+        public void AddWorkSample()
+        {
             //After winActiavte do not move from focussed window
             //Otherwise the script will run the command on the newly focused window.
-            wrksampleselect.Click();
+            workSampleSelect.Click();
             AutoItX3 autoIt = new AutoItX3();
             Thread.Sleep(1000);
             autoIt.WinActivate("Open");
             Thread.Sleep(1000);
-            autoIt.Send(@"C:\Users\nikit\OneDrive\Desktop\QA-Analyst-small.png");
+            autoIt.Send(@"C:\Users\nikit\Mars_Task02\Mars_Task02\Mars_Task02\Mars_Task02\AUTOIT\" + ExcelLib.ReadData(RowNum, "Work Sample"));
+
             Thread.Sleep(1000);
             autoIt.Send("{ENTER}");
+        }
 
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input", 5);
-            activeRbtn.Click();
+        public void AddVisibility()
+        {
+            if (ExcelLib.ReadData(RowNum, "Active") == "Active")
+            {
+                activeButton.Click();
+            }
+            else
+            {
+                hiddenButton.Click();
+            }
+        }
+
+        public void SaveSkill()
+        {
+            saveButton.Click();
+        }
+
+        public string EnterTitle()
+        {
+            return titleRequired.Text;
+        }
+
+        public string SpecialChars()
+        {
+            return titleSpecialCharacters.Text;
+        }
+
+        public int CharacterLimit()
+        {
+            return titleTextBox.Text.Count();
+        }
+
+        public string EnterDescription()
+        {
+            return descriptionIsRequired.Text;
+        }
+
+        public string EnterTag()
+        {
+            return tagIsRequired.Text;
+        }
+
+        public string IncorrectFileFormat()
+        {
+            return incorrectFileFormat.Text;
+        }
+        public string ConfirmationAlertWindow()
+        {
+            return confirmationAlert.Text;
+        }
 
 
-            Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]", 5);
-            savebtn.Click();
+        //Wait.WaitobeClickable(driver, "Name", "title", 5);
+        //    //titleTextBox.SendKeys(title);
+
+
+        //    Wait.WaitobeClickable(driver, "Name", "description", 5);
+        //    //descTextBox.SendKeys(description);
+
+
+        //    Wait.WaitobeClickable(driver, "Name", "categoryId", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "Name", "subcategoryId", 5);
+
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "\"//*[@id=\\\"service-listing-section\\\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input\"", 5);
+
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[5]/div[2]/div[1]/div[1]/div/input", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[6]/div[2]/div/div[2]/div/input", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "Name", "startDate", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "Name", "endDate", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[1]/div/input", 5);
+        //    selectSunday.Click();
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[2]/input", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[2]/div[3]/input", 5);
+        //    endTimeSunday.SendKeys(sunendtime);
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[1]/div/input", 5);
+        //    selectMonday.Click();
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[2]/input", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[3]/div[3]/input", 5);
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[1]/div/input", 5);
+        //    selectTuesday.Click();
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[2]/input", 5);
+        //    startTimeTuesday.SendKeys(tuestarttime);
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[4]/div[3]/input", 5);
+        //    endTimeTuesday.SendKeys(tueendtime);
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[2]/div/div[1]/div/input", 5);
+        //    skillTradeButton.Click();
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input", 5);
+        //    skillExchange.SendKeys(skillexc + "\n");
+
+        //Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input", 5);
+        //    activeButton.Click();
+
+
+        //    Wait.WaitobeClickable(driver, "XPath", "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]", 5);
+        //    saveButton.Click();
 
             //Thread.Sleep(5000);
             //Assert.That(addedtitle.Text == "Quality Assurance Analyst", "Skill is not added successfully");
-            Thread.Sleep(5000);
-            Assert.That(confirmationAlert.Text == "Service Listing Added successfully", "Record not added sucessfully");
+            //Thread.Sleep(5000);
+            //Assert.That(confirmationAlert.Text == "Service Listing Added successfully", "Record not added sucessfully");
 
 
-        }
-
-        //public string alertWindow(IWebDriver driver)
-        //{
-        //    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-        //    return confirmationAlert.Text;
-        //}
     }
+
+        
+    
 }
