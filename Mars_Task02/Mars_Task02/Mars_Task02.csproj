@@ -85,6 +85,7 @@
     <Folder Include="ExcelData\" />
     <Folder Include="ExtentReport\TestReports\Screenshots\" />
     <Folder Include="ExtentReport\TestReports\Reports\" />
+    <Folder Include="AUTOIT\" />
   </ItemGroup>
 
   <ItemGroup>

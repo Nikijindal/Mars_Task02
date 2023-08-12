@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mars_Task02.Utilities
 {
-    public class Wait 
+    public class Wait : CommonDriver
     {
         public static void WaitobeClickable(IWebDriver driver,string locatorType,string locatorValue, int seconds)
         {
@@ -54,6 +54,17 @@ namespace Mars_Task02.Utilities
                 wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Name(LocatorValue)));
 
             }
+        }
+
+        public static void wait(int time)
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(time);
+
+        }
+        public static IWebElement WaitForElement(IWebDriver driver, By by, int timeOutinSeconds)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOutinSeconds));
+            return (wait.Until(ExpectedConditions.ElementIsVisible(by)));
         }
 
     }
